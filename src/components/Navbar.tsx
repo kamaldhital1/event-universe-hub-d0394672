@@ -33,8 +33,8 @@ const Navbar = () => {
           <Button variant="ghost" size="icon">
             <Search className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm">Sign In</Button>
-          <Button variant="hero" size="sm">Get Started</Button>
+          <Link to="/login"><Button variant="ghost" size="sm">Sign In</Button></Link>
+          <Link to="/signup"><Button variant="hero" size="sm">Get Started</Button></Link>
         </div>
 
         <Button
