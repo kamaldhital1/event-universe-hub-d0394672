@@ -16,7 +16,7 @@ const Signup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    navigate(role === "organizer" ? "/dashboard" : "/attendee");
   };
 
   return (
@@ -124,7 +124,7 @@ const Signup = () => {
             </div>
 
             <Button variant="hero" className="w-full h-11" type="submit">
-              Create Account
+              Create {role === "organizer" ? "Organizer" : "Attendee"} Account
             </Button>
           </form>
 
