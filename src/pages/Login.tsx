@@ -10,12 +10,12 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<"attendee" | "organizer">("attendee");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login — navigate to dashboard
-    navigate("/dashboard");
+    navigate(role === "organizer" ? "/dashboard" : "/attendee");
   };
 
   return (
@@ -63,6 +63,32 @@ const Login = () => {
             <Link to="/signup" className="text-accent hover:underline font-medium">Create one</Link>
           </p>
 
+          {/* Role selector */}
+          <div className="flex gap-2 mb-6 p-1 bg-muted rounded-lg">
+            <button
+              type="button"
+              onClick={() => setRole("attendee")}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                role === "attendee"
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Attendee
+            </button>
+            <button
+              type="button"
+              onClick={() => setRole("organizer")}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                role === "organizer"
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Organizer
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -101,7 +127,7 @@ const Login = () => {
             </div>
 
             <Button variant="hero" className="w-full h-11" type="submit">
-              Sign In
+              Sign In as {role === "organizer" ? "Organizer" : "Attendee"}
             </Button>
           </form>
 
