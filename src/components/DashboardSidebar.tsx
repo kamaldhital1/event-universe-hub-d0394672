@@ -9,6 +9,7 @@ import {
   Settings,
   LogOut,
   Plus,
+  Sparkles,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -46,21 +47,21 @@ export function DashboardSidebar() {
     path === "/dashboard" ? location.pathname === "/dashboard" : location.pathname.startsWith(path);
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border">
+    <Sidebar collapsible="icon" className="border-r border-border/50">
       <SidebarContent>
         {/* Logo */}
-        <div className="p-4 flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center shrink-0">
+        <div className="p-4 flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-gradient-accent flex items-center justify-center shrink-0 shadow-glow">
             <span className="text-accent-foreground font-heading font-bold text-sm">S</span>
           </div>
-          {!collapsed && <span className="font-heading font-bold text-lg text-foreground">Sansaar</span>}
+          {!collapsed && <span className="font-heading font-bold text-lg text-sidebar-foreground tracking-tight">Sansaar</span>}
         </div>
 
         {/* Create Event button */}
         {!collapsed && (
-          <div className="px-4 mb-2">
+          <div className="px-4 mb-3">
             <Link to="/dashboard/events/new">
-              <Button variant="hero" size="sm" className="w-full gap-2">
+              <Button variant="hero" size="sm" className="w-full gap-2 rounded-xl">
                 <Plus className="h-4 w-4" />
                 Create Event
               </Button>
@@ -69,7 +70,7 @@ export function DashboardSidebar() {
         )}
 
         <SidebarGroup>
-          <SidebarGroupLabel>Main</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/40 uppercase tracking-wider text-[10px] font-semibold">Main</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNav.map((item) => (
@@ -78,8 +79,8 @@ export function DashboardSidebar() {
                     <NavLink
                       to={item.url}
                       end={item.url === "/dashboard"}
-                      className="hover:bg-muted/50"
-                      activeClassName="bg-muted text-accent font-medium"
+                      className="hover:bg-sidebar-accent/50 rounded-xl transition-all duration-200"
+                      activeClassName="bg-sidebar-accent text-sidebar-primary font-semibold"
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       {!collapsed && <span>{item.title}</span>}
@@ -97,7 +98,7 @@ export function DashboardSidebar() {
           {bottomNav.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <NavLink to={item.url} className="hover:bg-muted/50" activeClassName="bg-muted text-accent font-medium">
+                <NavLink to={item.url} className="hover:bg-sidebar-accent/50 rounded-xl" activeClassName="bg-sidebar-accent text-sidebar-primary font-semibold">
                   <item.icon className="mr-2 h-4 w-4" />
                   {!collapsed && <span>{item.title}</span>}
                 </NavLink>
@@ -106,7 +107,7 @@ export function DashboardSidebar() {
           ))}
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/" className="hover:bg-muted/50">
+              <Link to="/" className="hover:bg-sidebar-accent/50 rounded-xl">
                 <LogOut className="mr-2 h-4 w-4" />
                 {!collapsed && <span>Sign Out</span>}
               </Link>
