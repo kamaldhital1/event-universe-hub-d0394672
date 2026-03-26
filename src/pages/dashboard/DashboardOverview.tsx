@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CalendarDays, Users, DollarSign, TrendingUp, ArrowUpRight, ArrowDownRight, Plus, ArrowRight, Clock, MapPin, AlertCircle, CheckCircle2, UserPlus, Sparkles } from "lucide-react";
+import { CalendarDays, Users, DollarSign, TrendingUp, ArrowUpRight, ArrowDownRight, Plus, ArrowRight, Clock, MapPin, AlertCircle, CheckCircle2, UserPlus, Sparkles, Eye, Zap, Target, Globe } from "lucide-react";
 import { mockEvents, mockRegistrations, mockAttendees, formatCurrency } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
 
 const totalRevenue = mockEvents.reduce((sum, e) => sum + e.revenue, 0);
 const totalRegistrations = mockRegistrations.length;
@@ -54,9 +54,17 @@ const upcomingEvents = mockEvents.filter((e) => e.status === "published").slice(
 const activityFeed = [
   { id: 1, icon: UserPlus, text: "Priya Sharma registered for Global Tech Summit", time: "2 min ago", color: "text-emerald", bg: "bg-emerald/10" },
   { id: 2, icon: CheckCircle2, text: "Midnight Echoes passed 8,500 registrations", time: "1h ago", color: "text-blue-600", bg: "bg-blue-500/10" },
-  { id: 3, icon: AlertCircle, text: "Annual Charity Gala is still in draft", time: "3h ago", color: "text-gold", bg: "bg-gold/10" },
-  { id: 4, icon: DollarSign, text: "₹4,999 payment received from Kiran Desai", time: "5h ago", color: "text-emerald", bg: "bg-emerald/10" },
+  { id: 3, icon: DollarSign, text: "₹4,999 payment received from Kiran Desai", time: "3h ago", color: "text-emerald", bg: "bg-emerald/10" },
+  { id: 4, icon: AlertCircle, text: "Annual Charity Gala is still in draft", time: "5h ago", color: "text-gold", bg: "bg-gold/10" },
   { id: 5, icon: UserPlus, text: "Arjun Singh waitlisted for Midnight Echoes", time: "6h ago", color: "text-violet", bg: "bg-violet/10" },
+  { id: 6, icon: Eye, text: "Global Tech Summit page viewed 340 times today", time: "8h ago", color: "text-accent", bg: "bg-accent/10" },
+];
+
+const quickActions = [
+  { label: "Create Event", icon: Plus, to: "/dashboard/events/new", color: "text-accent", bg: "bg-accent/8" },
+  { label: "View Analytics", icon: TrendingUp, to: "/dashboard/analytics", color: "text-violet", bg: "bg-violet/8" },
+  { label: "Manage Venues", icon: Globe, to: "/dashboard/venues", color: "text-emerald", bg: "bg-emerald/8" },
+  { label: "Export Data", icon: Target, to: "/dashboard/registrations", color: "text-gold", bg: "bg-gold/8" },
 ];
 
 const container = {
@@ -88,17 +96,12 @@ const DashboardOverview = () => {
               <Plus className="h-4 w-4" /> Create Event
             </Button>
           </Link>
-          <Link to="/dashboard/analytics">
-            <Button variant="outline" size="sm" className="gap-2 rounded-xl">
-              <TrendingUp className="h-4 w-4" /> Analytics
-            </Button>
-          </Link>
         </div>
       </motion.div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, i) => (
+        {stats.map((stat) => (
           <motion.div
             key={stat.label}
             variants={item}
@@ -120,10 +123,27 @@ const DashboardOverview = () => {
         ))}
       </div>
 
+      {/* Quick Actions */}
+      <motion.div variants={item} className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {quickActions.map((action) => (
+          <Link key={action.label} to={action.to}>
+            <div className="bg-card rounded-2xl p-4 shadow-card border border-border/40 hover:shadow-card-hover transition-all duration-300 flex items-center gap-3 group hover:-translate-y-1 cursor-pointer">
+              <div className={`w-10 h-10 rounded-xl ${action.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                <action.icon className={`h-5 w-5 ${action.color}`} />
+              </div>
+              <span className="text-sm font-semibold text-card-foreground">{action.label}</span>
+            </div>
+          </Link>
+        ))}
+      </motion.div>
+
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div variants={item} className="bg-card rounded-2xl p-6 shadow-card border border-border/40">
-          <h3 className="font-heading font-bold text-card-foreground mb-5 tracking-tight">Revenue by Event</h3>
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-heading font-bold text-card-foreground tracking-tight">Revenue by Event</h3>
+            <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-lg">Last 6 months</span>
+          </div>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={revenueByEvent}>
               <XAxis dataKey="name" tick={{ fontSize: 10, fill: "hsl(220, 12%, 46%)" }} axisLine={false} tickLine={false} />
@@ -135,7 +155,10 @@ const DashboardOverview = () => {
         </motion.div>
 
         <motion.div variants={item} className="bg-card rounded-2xl p-6 shadow-card border border-border/40">
-          <h3 className="font-heading font-bold text-card-foreground mb-5 tracking-tight">Registration Trend</h3>
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-heading font-bold text-card-foreground tracking-tight">Registration Trend</h3>
+            <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-lg">Monthly</span>
+          </div>
           <ResponsiveContainer width="100%" height={260}>
             <AreaChart data={registrationTrend}>
               <defs>
@@ -281,6 +304,27 @@ const DashboardOverview = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      </motion.div>
+
+      {/* Performance Insights */}
+      <motion.div variants={item} className="bg-gradient-to-r from-accent/5 via-violet/5 to-emerald/5 rounded-2xl p-6 border border-accent/10">
+        <div className="flex items-center gap-3 mb-4">
+          <Zap className="h-5 w-5 text-accent" />
+          <h3 className="font-heading font-bold text-card-foreground tracking-tight">Performance Insights</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { title: "Best Performing Event", value: "Midnight Echoes", detail: "85% capacity filled in 2 weeks" },
+            { title: "Top Registration Day", value: "Tuesday", detail: "32% of all registrations happen on Tuesdays" },
+            { title: "Avg. Revenue/Event", value: formatCurrency(Math.round(totalRevenue / mockEvents.length)), detail: "Up 18% from last quarter" },
+          ].map((insight) => (
+            <div key={insight.title} className="bg-card/60 rounded-xl p-4 backdrop-blur-sm">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">{insight.title}</p>
+              <p className="font-heading font-bold text-lg text-card-foreground mt-1">{insight.value}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{insight.detail}</p>
+            </div>
+          ))}
         </div>
       </motion.div>
     </motion.div>

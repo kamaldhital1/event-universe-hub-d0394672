@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CalendarDays, MapPin, Clock, ArrowRight, Ticket, Star, TrendingUp, Sparkles } from "lucide-react";
+import { CalendarDays, MapPin, Clock, ArrowRight, Ticket, Star, TrendingUp, Sparkles, Zap, Heart, Bell, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { mockEvents, mockRegistrations } from "@/data/mockData";
 
@@ -9,6 +9,7 @@ const upcomingRegistrations = mockRegistrations
   .slice(0, 3);
 
 const recommendedEvents = mockEvents.filter((e) => e.status === "published").slice(0, 4);
+const trendingEvents = mockEvents.filter((e) => e.status === "published" && e.waitlist > 0).slice(0, 3);
 
 const container = {
   hidden: { opacity: 0 },
@@ -18,6 +19,12 @@ const container = {
 const item = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const getCountdown = (dateStr: string) => {
+  const diff = new Date(dateStr).getTime() - new Date("2026-03-26").getTime();
+  const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+  return days;
 };
 
 const AttendeeHome = () => {
@@ -46,7 +53,8 @@ const AttendeeHome = () => {
           </div>
           <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3 tracking-tight">Welcome back, Priya! 👋</h1>
           <p className="text-primary-foreground/55 text-lg max-w-lg leading-relaxed">
-            You have {upcomingRegistrations.length} upcoming events. Explore what's happening around you.
+            You have {upcomingRegistrations.length} upcoming events. Your next event is in{" "}
+            <span className="text-coral-light font-semibold">{getCountdown("2026-04-15")} days</span>.
           </p>
           <div className="flex gap-3 mt-8">
             <Link to="/attendee/discover">
@@ -70,7 +78,7 @@ const AttendeeHome = () => {
           { label: "Upcoming", value: "3", icon: Clock, color: "text-emerald", bg: "bg-emerald/8" },
           { label: "Saved Events", value: "12", icon: Star, color: "text-gold", bg: "bg-gold/8" },
           { label: "This Month", value: "2", icon: TrendingUp, color: "text-violet", bg: "bg-violet/8" },
-        ].map((stat, i) => (
+        ].map((stat) => (
           <motion.div
             key={stat.label}
             variants={item}
@@ -86,6 +94,20 @@ const AttendeeHome = () => {
         ))}
       </motion.div>
 
+      {/* Notifications Banner */}
+      <motion.div variants={item} className="bg-gold/5 border border-gold/20 rounded-2xl p-5 flex items-center gap-4">
+        <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center shrink-0">
+          <Bell className="h-5 w-5 text-gold" />
+        </div>
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-card-foreground">Early bird pricing ends tomorrow!</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Midnight Echoes Music Festival — save ₹500 before prices go up.</p>
+        </div>
+        <Link to="/event/2">
+          <Button variant="outline" size="sm" className="rounded-xl shrink-0">View Event</Button>
+        </Link>
+      </motion.div>
+
       {/* Upcoming Tickets */}
       <motion.section variants={item}>
         <div className="flex items-center justify-between mb-5">
@@ -95,9 +117,10 @@ const AttendeeHome = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {upcomingRegistrations.map((reg, i) => {
+          {upcomingRegistrations.map((reg) => {
             const event = mockEvents.find((e) => e.id === reg.eventId);
             if (!event) return null;
+            const daysLeft = getCountdown(event.date);
             return (
               <motion.div
                 key={reg.id}
@@ -108,10 +131,13 @@ const AttendeeHome = () => {
                 <div className="relative h-36">
                   <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                  <div className="absolute bottom-3 left-3">
+                  <div className="absolute bottom-3 left-3 flex gap-2">
                     <span className="text-xs font-semibold bg-accent/90 text-accent-foreground px-3 py-1 rounded-full shadow-sm">
                       {reg.ticketType}
                     </span>
+                  </div>
+                  <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-md px-2.5 py-1 rounded-full">
+                    <span className="text-[10px] font-bold text-accent">{daysLeft}d left</span>
                   </div>
                 </div>
                 <div className="p-4 space-y-2.5">
@@ -136,6 +162,36 @@ const AttendeeHome = () => {
         </div>
       </motion.section>
 
+      {/* Trending Now */}
+      <motion.section variants={item}>
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="font-heading text-xl font-bold text-foreground tracking-tight flex items-center gap-2">
+            <Zap className="h-5 w-5 text-gold" /> Trending Now
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {trendingEvents.map((event) => (
+            <Link key={event.id} to={`/event/${event.id}`} className="group">
+              <motion.div
+                variants={item}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="bg-card rounded-2xl p-4 shadow-card border border-border/40 hover:shadow-card-hover transition-all duration-500 flex gap-4"
+              >
+                <img src={event.image} alt={event.title} className="w-20 h-20 rounded-xl object-cover shrink-0 group-hover:scale-105 transition-transform duration-300" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-heading font-bold text-card-foreground line-clamp-1">{event.title}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{new Date(event.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-sm font-bold text-accent">{event.price}</span>
+                    <span className="text-[10px] bg-gold/10 text-gold px-2 py-0.5 rounded-full font-semibold">🔥 {event.waitlist} on waitlist</span>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </motion.section>
+
       {/* Recommended */}
       <motion.section variants={item}>
         <div className="flex items-center justify-between mb-5">
@@ -145,36 +201,49 @@ const AttendeeHome = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {recommendedEvents.map((event, i) => (
-            <motion.div
-              key={event.id}
-              variants={item}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="bg-card rounded-2xl overflow-hidden shadow-card border border-border/40 hover:shadow-card-hover transition-all duration-500 group cursor-pointer"
-            >
-              <div className="relative h-40">
-                <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-3 right-3">
-                  <span className="text-[10px] font-semibold bg-card/90 text-card-foreground px-2.5 py-1 rounded-full backdrop-blur-md shadow-sm">
-                    {event.category}
-                  </span>
+          {recommendedEvents.map((event) => (
+            <Link key={event.id} to={`/event/${event.id}`}>
+              <motion.div
+                variants={item}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                className="bg-card rounded-2xl overflow-hidden shadow-card border border-border/40 hover:shadow-card-hover transition-all duration-500 group cursor-pointer"
+              >
+                <div className="relative h-40">
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute top-3 right-3">
+                    <span className="text-[10px] font-semibold bg-card/90 text-card-foreground px-2.5 py-1 rounded-full backdrop-blur-md shadow-sm">
+                      {event.category}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-4 space-y-2.5">
-                <h3 className="font-heading font-bold text-sm text-card-foreground line-clamp-1">{event.title}</h3>
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <CalendarDays className="h-3 w-3 text-accent/60" />
-                  <span>{new Date(event.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
+                <div className="p-4 space-y-2.5">
+                  <h3 className="font-heading font-bold text-sm text-card-foreground line-clamp-1">{event.title}</h3>
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <CalendarDays className="h-3 w-3 text-accent/60" />
+                    <span>{new Date(event.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-heading font-bold text-accent">{event.price}</span>
+                    <span className="text-xs text-muted-foreground">{event.capacity - event.attendees} left</span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-heading font-bold text-accent">{event.price}</span>
-                  <span className="text-xs text-muted-foreground">{event.capacity - event.attendees} left</span>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </motion.section>
+
+      {/* Referral Banner */}
+      <motion.div variants={item} className="bg-gradient-to-r from-accent/5 via-violet/5 to-emerald/5 rounded-2xl p-6 border border-accent/10 flex flex-col sm:flex-row items-center gap-5">
+        <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
+          <Gift className="h-7 w-7 text-accent" />
+        </div>
+        <div className="flex-1 text-center sm:text-left">
+          <h3 className="font-heading font-bold text-lg text-card-foreground">Invite friends, earn rewards!</h3>
+          <p className="text-sm text-muted-foreground mt-0.5">Share your referral link and get ₹200 off your next booking for each friend who signs up.</p>
+        </div>
+        <Button variant="hero" size="sm" className="rounded-xl shrink-0">Copy Referral Link</Button>
+      </motion.div>
     </motion.div>
   );
 };
