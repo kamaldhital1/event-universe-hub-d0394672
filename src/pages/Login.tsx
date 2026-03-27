@@ -91,10 +91,15 @@ const Login = () => {
           </div>
 
           <h2 className="font-heading text-3xl font-bold text-foreground mb-2 tracking-tight">Sign in</h2>
-          <p className="text-muted-foreground mb-8">
+          <p className="text-muted-foreground mb-4">
             Don't have an account?{" "}
             <Link to="/signup" className="text-accent hover:underline font-semibold">Create one</Link>
           </p>
+          {role === "organizer" && (
+            <p className="text-xs text-muted-foreground mb-4">
+              Super Admin? <Link to="/admin" className="text-red-500 hover:underline font-semibold">Access Admin Panel →</Link>
+            </p>
+          )}
 
           {/* Role selector */}
           <div className="flex gap-1.5 mb-8 p-1.5 bg-secondary rounded-xl">

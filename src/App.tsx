@@ -7,6 +7,9 @@ import Index from "./pages/Index.tsx";
 import EventDetail from "./pages/EventDetail.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
+import OrgOnboarding from "./pages/OrgOnboarding.tsx";
+import OrgPending from "./pages/OrgPending.tsx";
+import OrgRejected from "./pages/OrgRejected.tsx";
 import DashboardLayout from "./components/DashboardLayout.tsx";
 import DashboardOverview from "./pages/dashboard/DashboardOverview.tsx";
 import EventsList from "./pages/dashboard/EventsList.tsx";
@@ -22,6 +25,9 @@ import DiscoverEvents from "./pages/attendee/DiscoverEvents.tsx";
 import MyTickets from "./pages/attendee/MyTickets.tsx";
 import SavedEvents from "./pages/attendee/SavedEvents.tsx";
 import AttendeeProfile from "./pages/attendee/AttendeeProfile.tsx";
+import AdminLayout from "./pages/admin/AdminLayout.tsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import AdminOrganizations from "./pages/admin/AdminOrganizations.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -38,6 +44,11 @@ const App = () => (
           <Route path="/event/:id" element={<EventDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+
+          {/* Organization Onboarding Flow */}
+          <Route path="/org/onboarding" element={<OrgOnboarding />} />
+          <Route path="/org/pending" element={<OrgPending />} />
+          <Route path="/org/rejected" element={<OrgRejected />} />
 
           {/* Attendee Dashboard */}
           <Route path="/attendee" element={<AttendeeLayout />}>
@@ -58,6 +69,12 @@ const App = () => (
             <Route path="attendees" element={<AttendeesList />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+          </Route>
+
+          {/* Super Admin Panel */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="organizations" element={<AdminOrganizations />} />
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

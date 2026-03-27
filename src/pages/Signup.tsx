@@ -16,7 +16,7 @@ const Signup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(role === "organizer" ? "/dashboard" : "/attendee");
+    navigate(role === "organizer" ? "/org/onboarding" : "/attendee");
   };
 
   return (
