@@ -64,9 +64,9 @@
 
     --shadow-card: none;
     --shadow-card-hover: none;
-    --shadow-glow: 0 0 40px -8px hsl(348 83% 55% / 0.3);
-    --shadow-elevated: 0 20px 60px -15px hsl(228 55% 16% / 0.15);
-    --shadow-inner-glow: inset 0 1px 0 hsl(0 0% 100% / 0.1);
+    --shadow-glow: none;
+    --shadow-elevated: none;
+    --shadow-inner-glow: none;
   }
 
   .dark {
