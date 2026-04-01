@@ -60,6 +60,8 @@ const App = () => (
             <Route path="discover" element={<DiscoverEvents />} />
             <Route path="tickets" element={<MyTickets />} />
             <Route path="saved" element={<SavedEvents />} />
+            <Route path="community" element={<AttendeeCommunity />} />
+            <Route path="reviews" element={<AttendeeReviews />} />
             <Route path="profile" element={<AttendeeProfile />} />
           </Route>
 
