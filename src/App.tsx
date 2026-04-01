@@ -25,9 +25,13 @@ import DiscoverEvents from "./pages/attendee/DiscoverEvents.tsx";
 import MyTickets from "./pages/attendee/MyTickets.tsx";
 import SavedEvents from "./pages/attendee/SavedEvents.tsx";
 import AttendeeProfile from "./pages/attendee/AttendeeProfile.tsx";
+import AttendeeCommunity from "./pages/attendee/AttendeeCommunity.tsx";
+import AttendeeReviews from "./pages/attendee/AttendeeReviews.tsx";
 import AdminLayout from "./pages/admin/AdminLayout.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import AdminOrganizations from "./pages/admin/AdminOrganizations.tsx";
+import VolunteerManagement from "./pages/dashboard/VolunteerManagement.tsx";
+import MarketingPage from "./pages/dashboard/MarketingPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
