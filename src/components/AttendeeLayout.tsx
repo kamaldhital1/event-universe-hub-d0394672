@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Home, Search, Ticket, Heart, User, Bell, LogOut } from "lucide-react";
+import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -9,6 +9,16 @@ const navItems = [
   { label: "Discover", icon: Search, path: "/attendee/discover" },
   { label: "My Tickets", icon: Ticket, path: "/attendee/tickets" },
   { label: "Saved", icon: Heart, path: "/attendee/saved" },
+  { label: "Community", icon: Users, path: "/attendee/community" },
+  { label: "Reviews", icon: Star, path: "/attendee/reviews" },
+  { label: "Profile", icon: User, path: "/attendee/profile" },
+];
+
+const mobileNavItems = [
+  { label: "Home", icon: Home, path: "/attendee" },
+  { label: "Discover", icon: Search, path: "/attendee/discover" },
+  { label: "Tickets", icon: Ticket, path: "/attendee/tickets" },
+  { label: "Community", icon: Users, path: "/attendee/community" },
   { label: "Profile", icon: User, path: "/attendee/profile" },
 ];
 
