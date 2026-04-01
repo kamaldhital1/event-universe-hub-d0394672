@@ -44,7 +44,7 @@ const CTASection = () => {
             <span className="text-gradient">Extraordinary</span>?
           </h2>
           <p className="text-primary-foreground/55 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-            Join thousands of organizers and millions of attendees already building the future of events on Sansaar.
+            Whether you want to attend, volunteer, or organize — your next unforgettable experience starts here.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="hero" size="xl" className="rounded-2xl animate-glow-pulse">
