@@ -36,7 +36,7 @@ const CTASection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/15 border border-accent/20 backdrop-blur-sm mb-8"
           >
             <Sparkles className="h-3.5 w-3.5 text-coral-light" />
-            <span className="text-xs font-medium text-primary-foreground/80">Join 10,000+ organizers</span>
+            <span className="text-xs font-medium text-primary-foreground/80">Join 2M+ attendees, 10K+ organizers & 50K+ volunteers</span>
           </motion.div>
 
           <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-7 tracking-tight leading-[1.05]">
