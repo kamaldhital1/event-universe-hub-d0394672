@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Home, Search, Ticket, Heart, User, Bell, LogOut } from "lucide-react";
+import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -9,6 +9,16 @@ const navItems = [
   { label: "Discover", icon: Search, path: "/attendee/discover" },
   { label: "My Tickets", icon: Ticket, path: "/attendee/tickets" },
   { label: "Saved", icon: Heart, path: "/attendee/saved" },
+  { label: "Community", icon: Users, path: "/attendee/community" },
+  { label: "Reviews", icon: Star, path: "/attendee/reviews" },
+  { label: "Profile", icon: User, path: "/attendee/profile" },
+];
+
+const mobileNavItems = [
+  { label: "Home", icon: Home, path: "/attendee" },
+  { label: "Discover", icon: Search, path: "/attendee/discover" },
+  { label: "Tickets", icon: Ticket, path: "/attendee/tickets" },
+  { label: "Community", icon: Users, path: "/attendee/community" },
   { label: "Profile", icon: User, path: "/attendee/profile" },
 ];
 
@@ -79,7 +89,7 @@ const AttendeeLayout = () => {
       {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-2xl border-t border-border/40 z-50 safe-area-bottom">
         <div className="flex items-center justify-around h-16 px-2">
-          {navItems.map((item) => (
+          {mobileNavItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
