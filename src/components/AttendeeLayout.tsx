@@ -89,7 +89,7 @@ const AttendeeLayout = () => {
       {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-2xl border-t border-border/40 z-50 safe-area-bottom">
         <div className="flex items-center justify-around h-16 px-2">
-          {navItems.map((item) => (
+          {mobileNavItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}

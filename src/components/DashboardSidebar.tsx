@@ -10,6 +10,8 @@ import {
   LogOut,
   Plus,
   Sparkles,
+  HandHeart,
+  Megaphone,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -32,6 +34,8 @@ const mainNav = [
   { title: "Venues", url: "/dashboard/venues", icon: MapPin },
   { title: "Registrations", url: "/dashboard/registrations", icon: Ticket },
   { title: "Attendees", url: "/dashboard/attendees", icon: Users },
+  { title: "Volunteers", url: "/dashboard/volunteers", icon: HandHeart },
+  { title: "Marketing", url: "/dashboard/marketing", icon: Megaphone },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
 ];
 
