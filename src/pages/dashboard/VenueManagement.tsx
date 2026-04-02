@@ -22,7 +22,7 @@ const VenueManagement = () => {
           <h1 className="font-heading text-2xl font-bold text-foreground">Venues</h1>
           <p className="text-muted-foreground text-sm mt-1">Manage your event spaces and locations.</p>
         </div>
-        <Button variant="hero" className="gap-2">
+        <Button variant="hero" className="gap-2" onClick={() => navigate("/dashboard/venues/new")}>
           <Plus className="h-4 w-4" /> Add Venue
         </Button>
       </div>
