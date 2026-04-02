@@ -8,6 +8,7 @@ import { mockVenues, formatCurrency, getStatusColor } from "@/data/mockData";
 
 const VenueManagement = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const filtered = mockVenues.filter((v) =>
     v.name.toLowerCase().includes(search.toLowerCase()) ||
