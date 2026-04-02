@@ -74,8 +74,8 @@ const VenueManagement = () => {
                 )}
               </div>
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">Edit</Button>
-                <Button variant="hero" size="sm" className="flex-1">Book</Button>
+                <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate(`/dashboard/venues/${venue.id}`)}>View</Button>
+                <Button variant="hero" size="sm" className="flex-1" onClick={() => navigate(`/dashboard/venues/${venue.id}`)}>Book</Button>
               </div>
             </div>
           </motion.div>
