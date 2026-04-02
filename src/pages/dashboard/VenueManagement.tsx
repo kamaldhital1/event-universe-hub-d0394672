@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, Plus, MapPin, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { mockVenues, formatCurrency, getStatusColor } from "@/data/mockData";
 
 const VenueManagement = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const filtered = mockVenues.filter((v) =>
     v.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -21,7 +22,7 @@ const VenueManagement = () => {
           <h1 className="font-heading text-2xl font-bold text-foreground">Venues</h1>
           <p className="text-muted-foreground text-sm mt-1">Manage your event spaces and locations.</p>
         </div>
-        <Button variant="hero" className="gap-2">
+        <Button variant="hero" className="gap-2" onClick={() => navigate("/dashboard/venues/new")}>
           <Plus className="h-4 w-4" /> Add Venue
         </Button>
       </div>
@@ -73,8 +74,8 @@ const VenueManagement = () => {
                 )}
               </div>
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">Edit</Button>
-                <Button variant="hero" size="sm" className="flex-1">Book</Button>
+                <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate(`/dashboard/venues/${venue.id}`)}>View</Button>
+                <Button variant="hero" size="sm" className="flex-1" onClick={() => navigate(`/dashboard/venues/${venue.id}`)}>Book</Button>
               </div>
             </div>
           </motion.div>
