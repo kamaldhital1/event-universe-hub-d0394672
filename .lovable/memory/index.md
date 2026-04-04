@@ -8,12 +8,26 @@ Animations: float, pulse-soft, shimmer, slide-up, slide-down, scale-in, blur-in,
 Images: hero-event.jpg, event-conference/music/workshop/gala/sports/art.jpg in src/assets/
 
 Routes:
-- / (landing), /event/:id (detail), /login, /signup
-- /attendee (layout with top nav + bottom mobile nav)
+- / (landing), /event/:id (detail), /login, /signup, /forgot-password, /reset-password, /verify-email
+- /onboarding (attendee wizard)
+- /attendee (layout with top nav + bottom mobile nav + AI Concierge floating widget)
 - /attendee/discover, /attendee/tickets, /attendee/saved, /attendee/profile
+- /attendee/community, /attendee/reviews, /attendee/notifications
+- /attendee/pulse (Live Event Pulse — real-time sentiment/crowd heatmap)
+- /attendee/networking (Smart Networking — AI matchmaking cards)
+- /attendee/checkout/:id (event booking flow)
 - /dashboard (organizer layout with sidebar)
-- /dashboard/events, /dashboard/events/new, /dashboard/venues
+- /dashboard/events, /dashboard/events/new, /dashboard/venues, /dashboard/venues/new, /dashboard/venues/:id
 - /dashboard/registrations, /dashboard/attendees, /dashboard/analytics, /dashboard/settings
+- /dashboard/volunteers, /dashboard/marketing
+- /dashboard/security/mfa, /dashboard/security/password, /dashboard/payments
+- /admin, /admin/organizations
+
+Unique features:
+- AI Event Concierge (floating chat widget on attendee pages)
+- Live Event Pulse (real-time crowd density, sentiment, social buzz)
+- Smart Networking (AI matchmaking with compatibility scores & icebreakers)
+- AR Venue Preview (interactive 3D venue walkthrough with hotspots, floor selector, day/night toggle)
 
 Mock data in src/data/mockData.ts
 UI-first approach — no backend connected yet
