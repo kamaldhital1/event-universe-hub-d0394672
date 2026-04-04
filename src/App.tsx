@@ -83,6 +83,8 @@ const App = () => (
             <Route path="reviews" element={<AttendeeReviews />} />
             <Route path="profile" element={<AttendeeProfile />} />
             <Route path="notifications" element={<NotificationPreferences />} />
+            <Route path="pulse" element={<LiveEventPulse />} />
+            <Route path="networking" element={<SmartNetworking />} />
           </Route>
 
           {/* Attendee checkout (full-page, no layout) */}
