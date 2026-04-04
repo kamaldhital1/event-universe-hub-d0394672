@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, RotateCcw, ZoomIn, ZoomOut, Maximize2, MapPin, Users, Wifi, Car, X, Move3D, Layers, Sun, Moon } from "lucide-react";
+import { Eye, RotateCcw, ZoomIn, ZoomOut, Maximize2, MapPin, Users, Wifi, X, Move3D, Layers, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
