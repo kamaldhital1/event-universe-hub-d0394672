@@ -36,6 +36,11 @@ const VenueDetail = () => {
         </Button>
       </div>
 
+      {/* AR 3D Preview */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <ARVenuePreview venueName={venue.name} />
+      </motion.div>
+
       {/* Hero Image */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative rounded-2xl overflow-hidden h-64 lg:h-80">
         <img src={venue.image} alt={venue.name} className="w-full h-full object-cover" />
