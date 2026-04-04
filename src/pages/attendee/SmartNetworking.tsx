@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Sparkles, Heart, X, MessageCircle, Briefcase, MapPin, Star, Zap, Coffee, ArrowRight } from "lucide-react";
+import { Users, Sparkles, Heart, X, MessageCircle, Briefcase, MapPin, Star, Zap, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";

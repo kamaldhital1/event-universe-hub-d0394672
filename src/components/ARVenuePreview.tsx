@@ -32,8 +32,8 @@ const ARVenuePreview = ({ venueName = "Bengaluru Convention Center" }: Props) =>
         className={cn(
           "absolute inset-0 transition-colors duration-700",
           timeOfDay === "day"
-            ? "bg-gradient-to-br from-sky-100 via-blue-50 to-emerald-50"
-            : "bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-800"
+            ? "bg-gradient-to-br from-primary-foreground via-primary-foreground to-emerald/10"
+            : "bg-gradient-to-br from-primary via-primary to-primary"
         )}
       >
         {/* Grid floor */}
