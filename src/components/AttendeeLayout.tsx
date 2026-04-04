@@ -12,6 +12,8 @@ const navItems = [
   { label: "Saved", icon: Heart, path: "/attendee/saved" },
   { label: "Community", icon: Users, path: "/attendee/community" },
   { label: "Reviews", icon: Star, path: "/attendee/reviews" },
+  { label: "Pulse", icon: Activity, path: "/attendee/pulse" },
+  { label: "Networking", icon: Sparkles, path: "/attendee/networking" },
   { label: "Profile", icon: User, path: "/attendee/profile" },
 ];
 
