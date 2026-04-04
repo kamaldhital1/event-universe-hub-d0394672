@@ -1,8 +1,9 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star } from "lucide-react";
+import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star, Activity, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import AIConcierge from "@/components/AIConcierge";
 
 const navItems = [
   { label: "Home", icon: Home, path: "/attendee" },
