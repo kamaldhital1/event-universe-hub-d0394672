@@ -1,8 +1,9 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star } from "lucide-react";
+import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star, Activity, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import AIConcierge from "@/components/AIConcierge";
 
 const navItems = [
   { label: "Home", icon: Home, path: "/attendee" },
@@ -11,6 +12,8 @@ const navItems = [
   { label: "Saved", icon: Heart, path: "/attendee/saved" },
   { label: "Community", icon: Users, path: "/attendee/community" },
   { label: "Reviews", icon: Star, path: "/attendee/reviews" },
+  { label: "Pulse", icon: Activity, path: "/attendee/pulse" },
+  { label: "Networking", icon: Sparkles, path: "/attendee/networking" },
   { label: "Profile", icon: User, path: "/attendee/profile" },
 ];
 
@@ -85,6 +88,8 @@ const AttendeeLayout = () => {
       <main className="container mx-auto px-4 py-8 pb-24 md:pb-8">
         <Outlet />
       </main>
+
+      <AIConcierge />
 
       {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-2xl border-t border-border/40 z-50 safe-area-bottom">

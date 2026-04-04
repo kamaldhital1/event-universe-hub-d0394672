@@ -44,6 +44,8 @@ import AdminOrganizations from "./pages/admin/AdminOrganizations.tsx";
 import VolunteerManagement from "./pages/dashboard/VolunteerManagement.tsx";
 import MarketingPage from "./pages/dashboard/MarketingPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import LiveEventPulse from "./pages/attendee/LiveEventPulse.tsx";
+import SmartNetworking from "./pages/attendee/SmartNetworking.tsx";
 
 const queryClient = new QueryClient();
 
@@ -81,6 +83,8 @@ const App = () => (
             <Route path="reviews" element={<AttendeeReviews />} />
             <Route path="profile" element={<AttendeeProfile />} />
             <Route path="notifications" element={<NotificationPreferences />} />
+            <Route path="pulse" element={<LiveEventPulse />} />
+            <Route path="networking" element={<SmartNetworking />} />
           </Route>
 
           {/* Attendee checkout (full-page, no layout) */}

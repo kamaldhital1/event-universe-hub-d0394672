@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Users, DollarSign, Calendar, Wifi, Car, Coffee, Shield, Sparkles, Globe, Tag, Edit } from "lucide-react";
 import { mockVenues, formatCurrency, getStatusColor } from "@/data/mockData";
+import ARVenuePreview from "@/components/ARVenuePreview";
 
 const amenityIcons: Record<string, typeof Wifi> = {
   "Wi-Fi": Wifi, "A/V System": Globe, Catering: Coffee, Parking: Car, "Green Room": Sparkles,
@@ -34,6 +35,11 @@ const VenueDetail = () => {
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>
       </div>
+
+      {/* AR 3D Preview */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <ARVenuePreview venueName={venue.name} />
+      </motion.div>
 
       {/* Hero Image */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative rounded-2xl overflow-hidden h-64 lg:h-80">
