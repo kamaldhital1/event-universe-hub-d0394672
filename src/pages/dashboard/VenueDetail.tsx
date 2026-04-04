@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Users, DollarSign, Calendar, Wifi, Car, Coffee, Shield, Sparkles, Globe, Tag, Edit } from "lucide-react";
 import { mockVenues, formatCurrency, getStatusColor } from "@/data/mockData";
+import ARVenuePreview from "@/components/ARVenuePreview";
 
 const amenityIcons: Record<string, typeof Wifi> = {
   "Wi-Fi": Wifi, "A/V System": Globe, Catering: Coffee, Parking: Car, "Green Room": Sparkles,
