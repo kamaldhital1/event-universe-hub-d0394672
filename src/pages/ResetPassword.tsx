@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, Lock, CheckCircle2, Check, X } from "lucide-react";
+import { Eye, EyeOff, Lock, CheckCircle2, Check, X, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const requirements = [
   { label: "At least 8 characters", test: (p: string) => p.length >= 8 },
@@ -19,17 +21,24 @@ const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const allValid = requirements.every((r) => r.test(password));
   const passwordsMatch = password === confirmPassword && confirmPassword.length > 0;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (allValid && passwordsMatch) {
-      setSuccess(true);
-      setTimeout(() => navigate("/login"), 3000);
+    if (!allValid || !passwordsMatch) return;
+    setLoading(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    setLoading(false);
+    if (error) {
+      toast.error(error.message);
+      return;
     }
+    setSuccess(true);
+    setTimeout(() => navigate("/login"), 3000);
   };
 
   return (
@@ -103,9 +112,9 @@ const ResetPassword = () => {
                 variant="hero"
                 className="w-full h-12 rounded-xl text-sm"
                 type="submit"
-                disabled={!allValid || !passwordsMatch}
+                disabled={!allValid || !passwordsMatch || loading}
               >
-                Reset Password
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Reset Password"}
               </Button>
             </form>
           </>
