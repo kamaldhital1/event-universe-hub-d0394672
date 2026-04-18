@@ -1,9 +1,10 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, Ticket, Heart, User, Bell, LogOut, Users, Star, Activity, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import AIConcierge from "@/components/AIConcierge";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { label: "Home", icon: Home, path: "/attendee" },
@@ -27,8 +28,20 @@ const mobileNavItems = [
 
 const AttendeeLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut, user } = useAuth();
   const isActive = (path: string) =>
     path === "/attendee" ? location.pathname === "/attendee" : location.pathname.startsWith(path);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/", { replace: true });
+  };
+
+  const initials = ((user?.user_metadata?.display_name as string) || user?.email || "U")
+    .split(/[\s@]/)[0]
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,13 +85,11 @@ const AttendeeLayout = () => {
               <Bell className="h-4 w-4" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full animate-pulse-soft" />
             </Button>
-            <Link to="/">
-              <Button variant="ghost" size="icon" className="rounded-xl">
-                <LogOut className="h-4 w-4" />
-              </Button>
-            </Link>
+            <Button variant="ghost" size="icon" className="rounded-xl" onClick={handleSignOut} aria-label="Sign out">
+              <LogOut className="h-4 w-4" />
+            </Button>
             <div className="w-9 h-9 rounded-full bg-gradient-accent flex items-center justify-center shadow-sm">
-              <span className="text-xs font-bold text-accent-foreground">PS</span>
+              <span className="text-xs font-bold text-accent-foreground">{initials}</span>
             </div>
           </div>
         </div>

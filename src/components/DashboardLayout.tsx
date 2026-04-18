@@ -1,10 +1,21 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/DashboardSidebar";
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const DashboardLayout = () => {
+  const { signOut, user } = useAuth();
+  const navigate = useNavigate();
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/", { replace: true });
+  };
+  const initials = ((user?.user_metadata?.display_name as string) || user?.email || "OP")
+    .split(/[\s@]/)[0]
+    .slice(0, 2)
+    .toUpperCase();
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -23,8 +34,11 @@ const DashboardLayout = () => {
                 <Bell className="h-4 w-4" />
                 <span className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full animate-pulse-soft" />
               </Button>
+              <Button variant="ghost" size="icon" className="rounded-xl" onClick={handleSignOut} aria-label="Sign out">
+                <LogOut className="h-4 w-4" />
+              </Button>
               <div className="w-9 h-9 rounded-full bg-gradient-accent flex items-center justify-center shadow-sm ml-1">
-                <span className="text-xs font-bold text-accent-foreground">OP</span>
+                <span className="text-xs font-bold text-accent-foreground">{initials}</span>
               </div>
             </div>
           </header>
